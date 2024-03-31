@@ -7,8 +7,15 @@ on:
         required: false
         default: dist
         type: string
+    outputs:
+      result:
+        description: The result of the deployable artifact file
+        value: ${{ jobs.deploy.outputs.outcome }}
+
 jobs:
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -19,3 +26,7 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
+        # run: echo "::set-output naem=step-result::'success'"
