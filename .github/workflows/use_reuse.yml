@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Use reuse workflow
 on:
   push:
     branches:
@@ -68,7 +68,7 @@ jobs:
           path: dist
   deploy:
     needs: build
-    uses: ./.github/worklfows/reuseable.yml
+    uses: ./.github/workflows/reuseable.yml
   report:
     needs: [lint, deploy]
     if: failure()
